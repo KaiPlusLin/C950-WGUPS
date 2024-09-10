@@ -58,22 +58,7 @@ class ChainingHashTable:
             if kv[0] == key:
                 bucket_list.remove([kv[0], kv[1]])
 
-my_hash = ChainingHashTable()
 
-with open('CSV files/packageCSV.csv') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        package = Package(
-            id=int(row['package_number']),
-            address=row['address'],
-            city=row['city'],
-            state=row['state'],
-            zip_code=row['zip_code'],
-            delivery_deadline=row['delivery_deadline'],
-            weight=int(row['weight']),
-            special_notes=row['special_notes']
-        )
-        my_hash.insert(package.id, package)
 
 
 # print(my_hash.search(2))
