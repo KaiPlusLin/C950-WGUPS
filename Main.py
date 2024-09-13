@@ -1,7 +1,6 @@
 import csv
 from datetime import timedelta, datetime
 from os import close
-
 from AddressData import address_list, get_address_index
 from DistanceData import distance_list
 from HashTable import ChainingHashTable
@@ -70,7 +69,14 @@ def deliver_packages(truck):
         closest_package.delivery_status = "DELIVERED"
         #update truck's location and remove package from list
         truck.location = closest_package.address
-        truck.current_packages.remove(closest_package)
+
+        # print(f"Delivering package {closest_package.id}")
+        # print(f"Delivered to: {closest_package.address}")
+        # print(f"Delivery time: {closest_package.delivery_time}")
+        # print(f"Truck mileage: {truck.mileage} miles")
+        # print(f"Truck current time: {truck.current_time}\n")
+
+        truck.current_packages.remove(closest_package.id)
 
         # my_hash.insert(closest_package.id, closest_package)
 
@@ -82,6 +88,9 @@ truck1 = Truck(1, [4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 19, 20, 29, 30, 31] ,
 truck2 = Truck(2, [1, 3, 18, 34, 36, 37, 38, 40], timedelta(hours=8))
 truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39], timedelta(hours=8))
 
+deliver_packages(truck1)
+deliver_packages(truck2)
+deliver_packages(truck3)
 #
 # for package in truck1.current_packages:
 #     print(package)
@@ -89,6 +98,7 @@ truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39],
 #     print(package)
 # for package in truck3.current_packages:
 #     print(package)
+
 
 # Console
 while True:
@@ -107,16 +117,41 @@ while True:
     elif options == 2:
         #inputs
         package_number = int(input("Enter package number:  "))
-        package_time = input("Enter time (HH:MM):  ")
+        package_time = input("Enter time (HH:MM:SS):  ")
+
         #convert time to timedelta
-        time_split = datetime.strptime(package_time, "%H:%M")
-        delta = timedelta(hours=time_split.hour, minutes=time_split.minute)
-        print(delta)
+        time_split = datetime.strptime(package_time, "%H:%M:%S")
+        delta = timedelta(hours=time_split.hour, minutes=time_split.minute, seconds=time_split.minute)
 
         #search for package
-        print(my_hash.search(package_number))
+        search_package = (my_hash.search(package_number))
+        print(search_package)
+
+        #search for time
+        delivery_time = search_package.delivery_time
+        if search_package.delivery_time <= delta:
+            print(f"Package Delivered at {search_package.delivery_time}")
+        elif search_package.delivery_time > delta:
+            print(f"Package will be delivered at {search_package.delivery_time}")
+
 
     elif options == 3:
-        pass
+        #inputs
+        package_time = input("Enter time (HH:MM:SS):  ")
+
+        # convert time to timedelta
+        time_split = datetime.strptime(package_time, "%H:%M:%S")
+        delta = timedelta(hours=time_split.hour, minutes=time_split.minute, seconds=time_split.minute)
+
+        for i in range(1, 41):
+            search_package = my_hash.search(i)
+            if search_package:
+                delivery_time = search_package.delivery_time
+                if search_package.delivery_time <= delta:
+                    print(f"Package {search_package.id} delivered at {search_package.delivery_time}")
+                elif search_package.delivery_time > delta:
+                    print(f"Package {search_package.id} will be delivered at {search_package.delivery_time}")
+
+
     elif options == 4:
         break
