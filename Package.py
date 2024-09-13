@@ -12,8 +12,13 @@ class Package:
         self.weight = weight
         self.special_notes = special_notes
 
+        self.delivery_time = None
+        self.delivery_status = "Hub"
+
     def __str__(self):
         return (f"Package(id={self.id}, address='{self.address}', city='{self.city}', "
                 f"state='{self.state}', zip_code='{self.zip_code}', "
                 f"delivery_deadline='{self.delivery_deadline}', weight={self.weight}, "
-                f"special_notes='{self.special_notes}')")
+                f"special_notes='{self.special_notes}, "
+                f"delivery_time='{self.delivery_time}, "
+                f"delivery_status='{self.delivery_status}")

@@ -37,7 +37,7 @@ with open('CSV files/packageCSV.csv') as file:
         )
         my_hash.insert(package.id, package)
 
-
+#function using truck as argument
 def deliver_packages(truck):
 
     while len(truck.current_packages) > 0:
@@ -80,4 +80,21 @@ truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39],
 #     print(package)
 
 # Console
+while True:
+    print("-" * 60)
+    print("1.  List all packages and statuses")
+    print("2.  Print status for specific package at a time")
+    print("3.  Print status of all packages at a time")
+    print("4.  Exit")
 
+    print()
+    options = int(input("Enter 1-4: "))
+    if options == 1:
+        for i in range(1, 41):
+            print(my_hash.search(i))
+    elif options == 2:
+        pass
+    elif options == 3:
+        pass
+    elif options == 4:
+        break
