@@ -1,5 +1,5 @@
 import csv
-from datetime import timedelta
+from datetime import timedelta, datetime
 from os import close
 
 from AddressData import address_list, get_address_index
@@ -40,24 +40,35 @@ with open('CSV files/packageCSV.csv') as file:
 #function using truck as argument
 def deliver_packages(truck):
 
+    #loop checking for undelivered packages
     while len(truck.current_packages) > 0:
+        #initialize variables
         min_distance = 2000  # miles
         closest_package = None
 
+        #iterate over each package_id
         for package_id in truck.current_packages:
+            #search for package
             package = my_hash.search(package_id)
+            #looks for current location
             truck_location = truck.current_location
+            #looks for package delivery address
             package_address = package.address
+            #uses distance_between function
             distance = distance_between(truck_location, package_address)
 
+            #check if there's a closer package then the current
             if distance < min_distance:
                 min_distance = distance
                 closest_package = package
 
+        #updates trucks mileage and time
         truck.mileage += min_distance
         truck.current_time += timedelta(hours=min_distance / 18)
+        #set delivery time
         closest_package.delivery_time = truck.current_time
         closest_package.delivery_status = "DELIVERED"
+        #update truck's location and remove package from list
         truck.location = closest_package.address
         truck.current_packages.remove(closest_package)
 
@@ -81,7 +92,7 @@ truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39],
 
 # Console
 while True:
-    print("-" * 60)
+    print("*" * 60)
     print("1.  List all packages and statuses")
     print("2.  Print status for specific package at a time")
     print("3.  Print status of all packages at a time")
@@ -92,8 +103,19 @@ while True:
     if options == 1:
         for i in range(1, 41):
             print(my_hash.search(i))
+
     elif options == 2:
-        pass
+        #inputs
+        package_number = int(input("Enter package number:  "))
+        package_time = input("Enter time (HH:MM):  ")
+        #convert time to timedelta
+        time_split = datetime.strptime(package_time, "%H:%M")
+        delta = timedelta(hours=time_split.hour, minutes=time_split.minute)
+        print(delta)
+
+        #search for package
+        print(my_hash.search(package_number))
+
     elif options == 3:
         pass
     elif options == 4:
