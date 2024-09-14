@@ -70,11 +70,6 @@ def deliver_packages(truck):
         #update truck's location and remove package from list
         truck.location = closest_package.address
 
-        # print(f"Delivering package {closest_package.id}")
-        # print(f"Delivered to: {closest_package.address}")
-        # print(f"Delivery time: {closest_package.delivery_time}")
-        # print(f"Truck mileage: {truck.mileage} miles")
-        # print(f"Truck current time: {truck.current_time}\n")
 
         truck.current_packages.remove(closest_package.id)
 
@@ -86,18 +81,18 @@ def deliver_packages(truck):
 
 truck1 = Truck(1, [4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 19, 20, 29, 30, 31] ,timedelta(hours=8))
 truck2 = Truck(2, [1, 3, 18, 34, 36, 37, 38, 40], timedelta(hours=8))
-truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39], timedelta(hours=8))
+truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39], timedelta(hours=11))
+
 
 deliver_packages(truck1)
 deliver_packages(truck2)
-deliver_packages(truck3)
-#
-# for package in truck1.current_packages:
-#     print(package)
-# for package in truck2.current_packages:
-#     print(package)
-# for package in truck3.current_packages:
-#     print(package)
+
+if len(truck1.current_packages) == 0 or len(truck2.current_packages) == 0:
+    deliver_packages(truck3)
+    #change package 9 address
+    package9 = my_hash.search(9)
+    package9.address = "410 S State St."
+    my_hash.insert(package9.id, package9)
 
 
 # Console
