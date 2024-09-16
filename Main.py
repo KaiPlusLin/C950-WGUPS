@@ -17,8 +17,6 @@ def distance_between(address1, address2):
     return distance
 
 
-#print(distance_between(6, 2))
-
 my_hash = ChainingHashTable()
 
 with open('CSV files/packageCSV.csv') as file:
@@ -39,6 +37,7 @@ with open('CSV files/packageCSV.csv') as file:
 #function using truck as argument
 def deliver_packages(truck):
 
+#set truck as enroute
     for package_id in truck.current_packages:
         package = my_hash.search(package_id)
         if package:
@@ -75,6 +74,7 @@ def deliver_packages(truck):
         truck.current_time += timedelta(hours=min_distance / 18)
         #set delivery time
         closest_package.delivery_time = truck.current_time
+        closest_package.departure_time = truck.departure_time
         closest_package.delivery_status = "DELIVERED"
         #update truck's location and remove package from list
         truck.location = closest_package.address
@@ -92,14 +92,8 @@ truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39],
 
 deliver_packages(truck1)
 deliver_packages(truck2)
-
 if len(truck1.current_packages) == 0 or len(truck2.current_packages) == 0:
     deliver_packages(truck3)
-    #change package 9 address
-    package9 = my_hash.search(9)
-    if package9.delivery_status == "ENROUTE":
-        package9.address = "410 S State St."
-        my_hash.insert(package9.id, package9)
 
 
 
@@ -131,12 +125,7 @@ while True:
         search_package = (my_hash.search(package_number))
 
         #search for time
-        delivery_time = search_package.delivery_time
-        if search_package.delivery_time <= delta:
-            print(f"Package {search_package.id} was delivered at {search_package.delivery_time} to {search_package.address}, {search_package.city}, {search_package.state}, {search_package.zip_code}")
-        elif search_package.delivery_time > delta:
-            print(f"Package is ENROUTE and will be delivered at {search_package.delivery_time} to {search_package.address}, {search_package.city}, {search_package.state}, {search_package.zip_code}")
-
+        print(search_package.status(delta))
 
     elif options == 3:
         #inputs
@@ -146,38 +135,10 @@ while True:
         time_split = datetime.strptime(package_time, "%H:%M:%S")
         delta = timedelta(hours=time_split.hour, minutes=time_split.minute, seconds=time_split.second)
 
-        # for i in range(1, 41):
-        #     search_package = my_hash.search(i)
-        #     if search_package:
-        #         delivery_time = search_package.delivery_time
-        #         if search_package.delivery_time <= delta:
-        #             print(f"Package {search_package.id} delivered at {search_package.delivery_time} {search_package.delivery_status}")
-        #         elif search_package.delivery_time > delta:
-        #             print(f"Package {search_package.id} will be delivered at {search_package.delivery_time} {search_package.delivery_status}")
-        #
         for i in range(1, 41):
             search_package = my_hash.search(i)
-            if search_package:
-                delivery_time = search_package.delivery_time
-                if search_package.truck_number == 1 or search_package.truck_number == 2:
-                    if delivery_time <= delta:
-                        status = "DELIVERED"
-                    else:
-                        status = "ENROUTE"
-                elif search_package.truck_number == 3:
-                    if delta < timedelta(hours=11):
-                        status = "AT HUB"
-                    elif delivery_time <= delta:
-                        status = "DELIVERED"
-                    else:
-                        status = "ENROUTE"
-                else:
-                    status = search_package.delivery_status
-
-                print(f"Package {search_package.id}: Delivery Time- {search_package.delivery_time} Status- {status} ")
-
-
-
+            print(search_package.status(delta))
+            print()
 
     elif options == 4:
         break

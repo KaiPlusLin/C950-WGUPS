@@ -5,6 +5,7 @@ class Truck:
         self.truck_number = truck_number
         self.current_time = departure_time
         self.current_packages = package_list
+        self.departure_time = departure_time
 
         self.mileage = 0
         self.current_location = "4001 South 700 East"
