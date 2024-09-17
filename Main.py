@@ -85,9 +85,9 @@ def deliver_packages(truck):
     return truck.mileage
 
 
-truck1 = Truck(1, [4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 19, 20, 29, 30, 31] ,timedelta(hours=8))
-truck2 = Truck(2, [1, 3, 18, 34, 36, 37, 38, 40], timedelta(hours=8))
-truck3 = Truck(3, [2, 6, 9, 17, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 39], timedelta(hours=11))
+truck1 = Truck(1, [1, 6, 13, 14, 15, 16, 19, 20, 21, 30, 34, 39] ,timedelta(hours=8))
+truck2 = Truck(2, [2, 3, 4, 5, 7, 11, 18, 27, 29, 33, 35, 36, 37, 38, 40], timedelta(hours=8))
+truck3 = Truck(3, [8, 9, 10, 12, 17, 22, 23, 24, 25, 26, 28, 31, 32], timedelta(hours=9, minutes=5))
 
 
 deliver_packages(truck1)

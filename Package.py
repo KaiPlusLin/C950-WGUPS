@@ -22,7 +22,7 @@ class Package:
         return (f"Package id: {self.id}, Address: {self.address}, City: {self.city}, "
                 f"State: {self.state}, Zipcode: {self.zip_code}, "
                 f"Delivery Deadline: {self.delivery_deadline}, Weight: {self.weight}, "
-                f"Special Notes: {self.special_notes}, "
+                # f"Special Notes: {self.special_notes}, "
                 f"Delivery Time: {self.delivery_time}, "
                 f"Delivery Status {self.delivery_status}, Truck {self.truck_number}")
 
@@ -35,14 +35,15 @@ class Package:
             temp_status = "At Hub"
 
         temp_address = self.address
+        temp_zip = self.zip_code
 
-        if self.id == 9:
-            if time_entered < timedelta(hours=10, minutes=20):
-                temp_address = "300 State Street"
+        if self.id == 9 and time_entered >= timedelta(hours=10, minutes=20):
+            temp_address = "410 S State St"
+            temp_zip = "84111"
 
 
         return (f"ID: {self.id}- Address: {temp_address}, {self.city}, "
-                f"{self.state}, {self.zip_code} "
+                f"{self.state}, {temp_zip} "
                 f"Due by: {self.delivery_deadline} Weight: {self.weight} "
                 f"Special Notes: {self.special_notes} "
                 f"Delivery Time: {self.delivery_time} "
