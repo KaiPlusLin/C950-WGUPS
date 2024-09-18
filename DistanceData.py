@@ -9,6 +9,4 @@ def load_data(filename):
     return my_list
 
 distance_list = load_data('CSV files/distanceCSV.csv')
-# for row in distance_list:
-# #     print(row)
-# print(float(distance_list[9][4]))
+

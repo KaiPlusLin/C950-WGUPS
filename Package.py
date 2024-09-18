@@ -45,7 +45,6 @@ class Package:
         return (f"ID: {self.id}- Address: {temp_address}, {self.city}, "
                 f"{self.state}, {temp_zip} "
                 f"Due by: {self.delivery_deadline} Weight: {self.weight} "
-                f"Special Notes: {self.special_notes} "
                 f"Delivery Time: {self.delivery_time} "
                 f"Status: {temp_status} Truck: {self.truck_number}")
 

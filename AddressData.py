@@ -15,7 +15,3 @@ def get_address_index(address):
     return None
 
 address_list = load_data('CSV files/addressCSV.csv')
-
-# address = "4001 South 700 East"
-# index = get_address_index(address)
-# print(f"The index of '{address}' is {index}")

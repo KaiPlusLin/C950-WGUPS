@@ -1,3 +1,5 @@
+# C950 Task 2- Kaitlin Carleton 007899571
+
 import csv
 from datetime import timedelta, datetime
 from os import close
@@ -85,17 +87,26 @@ def deliver_packages(truck):
     return truck.mileage
 
 
+
+
 truck1 = Truck(1, [1, 6, 13, 14, 15, 16, 19, 20, 21, 30, 34, 39] ,timedelta(hours=8))
-truck2 = Truck(2, [2, 3, 4, 5, 7, 11, 18, 27, 29, 33, 35, 36, 37, 38, 40], timedelta(hours=8))
-truck3 = Truck(3, [8, 9, 10, 12, 17, 22, 23, 24, 25, 26, 28, 31, 32], timedelta(hours=9, minutes=5))
+truck2 = Truck(2, [2, 3, 4, 5, 7, 11, 18, 27, 29, 33, 35, 36, 38], timedelta(hours=8))
+truck3 = Truck(3, [8, 9, 10, 12, 17, 22, 23, 24, 25, 26, 28, 31, 32, 37, 40], timedelta(hours=9, minutes=5))
 
 
 deliver_packages(truck1)
 deliver_packages(truck2)
+
+total = truck1.mileage + truck2.mileage + truck3.mileage
+
+print(f"Truck 1 mileage: {truck1.mileage:.2f}")
+print(f"Truck 2 mileage: {truck2.mileage:.2f}")
+
 if len(truck1.current_packages) == 0 or len(truck2.current_packages) == 0:
     deliver_packages(truck3)
 
-
+print(f"Truck 3 mileage: {truck3.mileage:.2f}")
+print(f"Total = {total:.2f}")
 
 # Console
 while True:
@@ -138,7 +149,7 @@ while True:
         for i in range(1, 41):
             search_package = my_hash.search(i)
             print(search_package.status(delta))
-            print()
+
 
     elif options == 4:
         break
